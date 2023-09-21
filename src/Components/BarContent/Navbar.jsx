@@ -7,6 +7,7 @@ import {
   ShoppingBagIcon,
   XMarkIcon,
 } from "@heroicons/react/24/outline";
+// import ShoppingCard from "./ShoppingCard";
 
 const navigation = {
   categories: [
@@ -133,8 +134,8 @@ const navigation = {
     },
   ],
   pages: [
-    { name: "Company", href: "/" },
-    { name: "Stores", href: "/category" },
+    { name: "Company", href: "/category" },
+    { name: "Stores", href: "/filtproduct" },
   ],
 };
 
@@ -146,7 +147,7 @@ export default function Navbar() {
   const [open, setOpen] = useState(false);
 
   return (
-    <div className="bg-gradient-to-r from-red-100 from-10% via-sky-400 via-30% to-emerald-300 to-90% ... ">
+    <div className="bg-gradient-to-r from-red-200 from-10% via-sky-300 via-30% to-emerald-300 to-90% ... ">
       {/* Mobile menu */}
       <Transition.Root show={open} as={Fragment}>
         <Dialog as="div" className="relative z-40 lg:hidden" onClose={setOpen}>
@@ -225,8 +226,8 @@ export default function Navbar() {
                                   className="object-cover object-center"
                                 />
                               </div>
-                              <a
-                                href={item.href}
+                              <Link
+                                to={item.href}
                                 className="mt-6 block font-medium text-gray-900"
                               >
                                 <span
@@ -234,7 +235,7 @@ export default function Navbar() {
                                   aria-hidden="true"
                                 />
                                 {item.name}
-                              </a>
+                              </Link>
                               <p aria-hidden="true" className="mt-1">
                                 Shop now
                               </p>
@@ -255,12 +256,12 @@ export default function Navbar() {
                             >
                               {section.items.map((item) => (
                                 <li key={item.name} className="flow-root">
-                                  <a
-                                    href={item.href}
+                                  <Link
+                                    to={item.href}
                                     className="-m-2 block p-2 text-gray-500"
                                   >
                                     {item.name}
-                                  </a>
+                                  </Link>
                                 </li>
                               ))}
                             </ul>
@@ -294,17 +295,17 @@ export default function Navbar() {
                     </Link>
                   </div>
                   <div className="flow-root">
-                    <a
-                      href="/"
+                    <Link
+                      to="/"
                       className="-m-2 block p-2 font-medium text-gray-900"
                     >
                       Create account
-                    </a>
+                    </Link>
                   </div>
                 </div>
 
                 <div className="border-t border-gray-200 px-4 py-6">
-                  <a href="/" className="-m-2 flex items-center p-2">
+                  <Link to="/" className="-m-2 flex items-center p-2">
                     <img
                       src="https://tailwindui.com/img/flags/flag-canada.svg"
                       alt=""
@@ -314,7 +315,7 @@ export default function Navbar() {
                       CAD
                     </span>
                     <span className="sr-only">, change currency</span>
-                  </a>
+                  </Link>
                 </div>
               </Dialog.Panel>
             </Transition.Child>
@@ -410,8 +411,8 @@ export default function Navbar() {
                                               className="object-cover object-center"
                                             />
                                           </div>
-                                          <a
-                                            href={item.href}
+                                          <Link
+                                            to={item.href}
                                             className="mt-6 block font-medium text-gray-900"
                                           >
                                             <span
@@ -419,7 +420,7 @@ export default function Navbar() {
                                               aria-hidden="true"
                                             />
                                             {item.name}
-                                          </a>
+                                          </Link>
                                           <p
                                             aria-hidden="true"
                                             className="mt-1"
@@ -447,12 +448,12 @@ export default function Navbar() {
                                                 key={item.name}
                                                 className="flex"
                                               >
-                                                <a
-                                                  href={item.href}
+                                                <Link
+                                                  to={item.href}
                                                   className="hover:text-blue-600"
                                                 >
                                                   {item.name}
-                                                </a>
+                                                </Link>
                                               </li>
                                             ))}
                                           </ul>
@@ -490,12 +491,12 @@ export default function Navbar() {
                     Sign in
                   </Link>
                   <span className="h-6 w-px bg-gray-200" aria-hidden="true" />
-                  <a
-                    href="/"
+                  <Link
+                    to="/"
                     className="text-sm font-medium text-gray-700 hover:text-blue-600"
                   >
                     Create account
-                  </a>
+                  </Link>
                 </div>
 
                 <div className="hidden lg:ml-8 lg:flex">
@@ -515,18 +516,24 @@ export default function Navbar() {
 
                 {/* Search */}
                 <div className="flex lg:ml-6">
-                  <a href="/" className="p-2 text-gray-400 hover:text-blue-600">
+                  <Link
+                    to="/"
+                    className="p-2 text-gray-400 hover:text-blue-600"
+                  >
                     <span className="sr-only">Search</span>
                     <MagnifyingGlassIcon
                       className="h-6 w-6"
                       aria-hidden="true"
                     />
-                  </a>
+                  </Link>
                 </div>
 
                 {/* Cart */}
                 <div className="ml-4 flow-root lg:ml-6">
-                  <a href="/" className="group -m-2 flex items-center p-2">
+                  <Link
+                    to="/shoppingcard"
+                    className="group -m-2 flex items-center p-2"
+                  >
                     <ShoppingBagIcon
                       className="h-6 w-6 flex-shrink-0 text-gray-400 group-hover:text-blue-600"
                       aria-hidden="true"
@@ -534,8 +541,13 @@ export default function Navbar() {
                     <span className="ml-2 text-sm font-medium text-gray-700 group-hover:text-blue-600">
                       0
                     </span>
-                    <span className="sr-only">items in cart, view bag</span>
-                  </a>
+                    <span
+                      className="sr-only"
+                      onClick={() => {
+                        setOpen(true);
+                      }}
+                    ></span>
+                  </Link>
                 </div>
               </div>
             </div>

@@ -13,7 +13,7 @@ const stats = [
 
 export default function AFooter() {
   return (
-    <div className="relative isolate overflow-hidden bg-gradient-to-r from-green-400 from-20% via-gray-400 via-30% to-emerald-400 to-70% ... py-12 sm:py-12">
+    <div className="relative isolate overflow-hidden bg-gradient-to-r from-green-200 from-20% via-gray-200 via-30% to-emerald-200 to-70% ... py-12 sm:py-12">
       <div
         className="hidden sm:absolute sm:-top-10 sm:right-1/2 sm:-z-10 sm:mr-10 sm:block sm:transform-gpu sm:blur-3xl"
         aria-hidden="true"

@@ -8,6 +8,7 @@ import FiltProduct from "./Components/MainContent/Product/FiltProduct";
 import ProductList from "./Components/MainContent/Product/ProductList";
 import Home from "./Components/MainContent/Home/Home";
 import Footer from "./Components/Footer/Footer";
+import ShoppingCard from "./Components/BarContent/ShoppingCard";
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
           <Route path="/signin" element={<Signin />} />
           <Route path="/filtproduct" element={<FiltProduct />} />
           <Route path="/productlist" element={<ProductList />} />
+          <Route path="/shoppingcard" element={<ShoppingCard />} />
           {/* <Route path="/*" element={<Error />} /> */}
         </Routes>
         <AFooter />

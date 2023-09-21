@@ -4,23 +4,23 @@ import { Link } from "react-router-dom";
 export default function Footer() {
   return (
     <div>
-      <footer className="bg-gradient-to-r from-green-900 from-20% via-gray-600 via-30% to-emerald-800 to-70% ...  font-bold py-2 px-4">
+      <footer className="bg-gradient-to-r from-red-200 from-10% via-sky-300 via-30% to-emerald-300 to-90% ...  font-bold py-2 px-4">
         <div className="max-w-screen-xl px-4 py-16 mx-auto sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 gap-8 lg:grid-cols-3 ">
-            <div classNameName="items-center justify-between">
+            <div className="items-center justify-between">
               <img src="favicon.png" className=" h-12  " alt="logo" />
-              <p className="max-w-xs mt-4 text-sm text-amber-400 ">
+              <p className="max-w-xs mt-4 text-sm text-gray-600 ">
                 Powered by transparency, technology-driven customer interaction
                 process, and highly proficient teams.
               </p>
-              <div className="flex mt-8 space-x-6 text-amber-300 ">
+              <div className="flex mt-8 space-x-6 text-gray-600 ">
                 <Link
                   to="/"
                   className="hover:opacity-75"
                   target="_blank"
                   rel="noreferrer"
                 >
-                  <Link />
+                  <Link to="/" />
                   <span className="sr-only"> Facebook </span>
                   <svg
                     className="w-6 h-6"
@@ -72,8 +72,8 @@ export default function Footer() {
                   </svg>
                 </Link>
                 <Link
+                  to="/"
                   className="hover:opacity-75"
-                  href
                   target="_blank"
                   rel="noreferrer"
                 >
@@ -92,8 +92,8 @@ export default function Footer() {
                   </svg>
                 </Link>
                 <Link
+                  to="/"
                   className="hover:opacity-75"
-                  href
                   target="_blank"
                   rel="noreferrer"
                 >
@@ -115,76 +115,76 @@ export default function Footer() {
             </div>
             <div className="grid grid-cols-1 gap-8 lg:col-span-2 sm:grid-cols-2 lg:grid-cols-4">
               <div>
-                <p className="font-medium text-amber-300 ">Company</p>
-                <nav className="flex flex-col mt-4 space-y-2 text-sm text-blue-100 ">
-                  <Link className="hover:opacity-75" href>
+                <p className="font-medium text-blue-700 ">Company</p>
+                <nav className="flex flex-col mt-4 space-y-2 text-sm text-zinc-600 ">
+                  <Link to="/" className="hover:opacity-75">
                     About
                   </Link>
-                  <Link className="hover:opacity-75" href>
+                  <Link to="/" className="hover:opacity-75">
                     Meet the Team
                   </Link>
-                  <Link className="hover:opacity-75" href>
+                  <Link to="/" className="hover:opacity-75">
                     History
                   </Link>
-                  <Link className="hover:opacity-75" href>
+                  <Link to="/" className="hover:opacity-75">
                     Careers
                   </Link>
                 </nav>
               </div>
               <div>
-                <p className="font-medium text-amber-300">Services</p>
-                <nav className="flex flex-col mt-4 space-y-2 text-sm text-blue-100 ">
-                  <Link className="hover:opacity-75" href>
+                <p className="font-medium text-blue-700">Services</p>
+                <nav className="flex flex-col mt-4 space-y-2 text-sm text-zinc-600 ">
+                  <Link to="/" className="hover:opacity-75">
                     1on1 Coaching
                   </Link>
-                  <Link className="hover:opacity-75" href>
+                  <Link to="/" className="hover:opacity-75">
                     Company Review
                   </Link>
-                  <Link className="hover:opacity-75" href>
+                  <Link to="/" className="hover:opacity-75">
                     Accounts Review
                   </Link>
-                  <Link className="hover:opacity-75" href>
+                  <Link to="/" className="hover:opacity-75">
                     HR Consulting
                   </Link>
-                  <Link className="hover:opacity-75" href>
+                  <Link to="/" className="hover:opacity-75">
                     SEO Optimisation
                   </Link>
                 </nav>
               </div>
               <div>
-                <p className="font-medium text-amber-300">Helpful Links</p>
-                <nav className="flex flex-col mt-4 space-y-2 text-sm text-blue-100 ">
-                  <Link className="hover:opacity-75" href>
+                <p className="font-medium text-blue-700">Helpful Links</p>
+                <nav className="flex flex-col mt-4 space-y-2 text-sm text-zinc-600 ">
+                  <Link to="/" className="hover:opacity-75">
                     Contact
                   </Link>
-                  <Link className="hover:opacity-75" href>
+                  <Link to="/" className="hover:opacity-75">
                     FAQs
                   </Link>
-                  <Link className="hover:opacity-75" href>
+                  <Link to="/" className="hover:opacity-75">
                     Live Chat
                   </Link>
                 </nav>
               </div>
               <div>
-                <p className="font-medium text-amber-300">Legal</p>
-                <nav className="flex flex-col mt-4 space-y-2 text-sm text-blue-100 ">
-                  <Link className="hover:opacity-75" href>
+                <p className="font-medium text-blue-700">Legal</p>
+                <nav className="flex flex-col mt-4 space-y-2 text-sm text-zinc-600 ">
+                  <Link to="/" className="hover:opacity-75">
                     Privacy Policy
                   </Link>
-                  <Link className="hover:opacity-75" href>
+                  <Link to="/" className="hover:opacity-75">
                     Terms &amp; Conditions
                   </Link>
-                  <Link className="hover:opacity-75" href>
+                  <Link to="/" className="hover:opacity-75">
                     Returns Policy
                   </Link>
-                  <Link className="hover:opacity-75" href>
+                  <Link to="/" className="hover:opacity-75">
                     Accessibility
                   </Link>
                 </nav>
               </div>
             </div>
           </div>
-          <p className="mt-12 text-xs text-amber-100  font-serif">
+          <p className="mt-12 text-xs text-blue-700  font-serif">
             All Content ©2023 eMALIK Store.
           </p>
         </div>

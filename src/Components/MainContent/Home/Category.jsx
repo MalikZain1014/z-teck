@@ -1,5 +1,5 @@
-import React from "react";
-
+// import React, { useContext } from "react";
+// import StateContext from "../../Context/StateContext";
 const callouts = [
   {
     name: "Desk and Office",
@@ -51,6 +51,12 @@ const callouts = [
 ];
 
 export default function Category() {
+  // const { isLoading, featureProducts } = StateContext;
+  // console.log(
+  //   "🚀 ~ file: Category.jsx:55 ~ Category ~ featureProducts:",
+  //   featureProducts
+  // );
+
   return (
     <>
       <div className="bg-transparent">
