@@ -1,5 +1,18 @@
 [
   {
+    "id": 26,
+    "title": "DANVOUY Womens T Shirt Casual Cotton Short",
+    "price": 12.99,
+    "description": "95%Cotton,5%Spandex, Features: Casual, Short Sleeve, Letter Print,V-Neck,Fashion Tees, The fabric is soft and has some stretch., Occasion: Casual/Office/Beach/School/Home/Street. Season: Spring,Summer,Autumn,Winter.",
+    "category": "all-in-one's offer",
+    "image": "https://fakestoreapi.com/img/61pHAEJ4NML._AC_UX679_.jpg",
+    "rating": {
+      "rate": 3.6,
+      "count": 145
+    },
+    "feature": true
+  },
+  {
     "id": 1,
     "title": "Fjallraven - Foldsack No. 1 Backpack, Fits 15 Laptops",
     "price": 109.95,
@@ -21,7 +34,8 @@
     "rating": {
       "rate": 4.1,
       "count": 259
-    }
+    },
+    "feature": true
   },
   {
     "id": 3,
@@ -34,6 +48,19 @@
       "rate": 4.7,
       "count": 500
     }
+  },
+  {
+    "id": 25,
+    "title": "BIYLACLESEN Women's 3-in-1 Snowboard Jacket Winter Coats",
+    "price": 56.99,
+    "description": "Note:The Jackets is US standard size, Please choose size as your usual wear Material: 100% Polyester; Detachable Liner Fabric: Warm Fleece. Detachable Functional Liner: Skin Friendly, Lightweigt and Warm.Stand Collar Liner jacket, keep you warm in cold weather. Zippered Pockets: 2 Zippered Hand Pockets, 2 Zippered Pockets on Chest (enough to keep cards or keys)and 1 Hidden Pocket Inside.Zippered Hand Pockets and Hidden Pocket keep your things secure. Humanized Design: Adjustable and Detachable Hood and Adjustable cuff to prevent the wind and water,for a comfortable fit. 3 in 1 Detachable Design provide more convenience, you can separate the coat and inner as needed, or wear it together. It is suitable for different season and help you adapt to different climates",
+    "category": "winter's clothing",
+    "image": "https://fakestoreapi.com/img/51Y5NI-I5jL._AC_UX679_.jpg",
+    "rating": {
+      "rate": 2.6,
+      "count": 235
+    },
+    "feature": true
   },
   {
     "id": 4,
@@ -81,7 +108,8 @@
     "rating": {
       "rate": 3,
       "count": 400
-    }
+    },
+    "feature": true
   },
   {
     "id": 8,
@@ -153,7 +181,8 @@
     "rating": {
       "rate": 2.9,
       "count": 250
-    }
+    },
+    "feature": true
   },
   {
     "id": 14,
@@ -179,6 +208,7 @@
       "count": 235
     }
   },
+
   {
     "id": 16,
     "title": "Lock and Love Women's Removable Hooded Faux Leather Moto Biker Jacket",
@@ -213,7 +243,8 @@
     "rating": {
       "rate": 4.7,
       "count": 130
-    }
+    },
+    "feature": true
   },
   {
     "id": 19,
@@ -234,6 +265,19 @@
     "description": "95%Cotton,5%Spandex, Features: Casual, Short Sleeve, Letter Print,V-Neck,Fashion Tees, The fabric is soft and has some stretch., Occasion: Casual/Office/Beach/School/Home/Street. Season: Spring,Summer,Autumn,Winter.",
     "category": "women's clothing",
     "image": "https://fakestoreapi.com/img/61pHAEJ4NML._AC_UX679_.jpg",
+    "rating": {
+      "rate": 3.6,
+      "count": 145
+    }
+  },
+
+  {
+    "id": 27,
+    "title": "DANVOUY Womens T Shirt Casual Cotton Short",
+    "price": 12.99,
+    "description": "95%Cotton,5%Spandex, Features: Casual, Short Sleeve, Letter Print,V-Neck,Fashion Tees, The fabric is soft and has some stretch., Occasion: Casual/Office/Beach/School/Home/Street. Season: Spring,Summer,Autumn,Winter.",
+    "category": "women's clothing",
+    "image": "https://tailwindui.com/img/ecommerce-images/product-page-01-related-product-04.jpg",
     "rating": {
       "rate": 3.6,
       "count": 145

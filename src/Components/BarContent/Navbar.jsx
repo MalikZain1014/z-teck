@@ -7,7 +7,6 @@ import {
   ShoppingBagIcon,
   XMarkIcon,
 } from "@heroicons/react/24/outline";
-// import ShoppingCard from "./ShoppingCard";
 
 const navigation = {
   categories: [
@@ -147,7 +146,7 @@ export default function Navbar() {
   const [open, setOpen] = useState(false);
 
   return (
-    <div className="bg-gradient-to-r from-red-200 from-10% via-sky-300 via-30% to-emerald-300 to-90% ... ">
+    <div className="bg-green-100 sticky top-0 z-10">
       {/* Mobile menu */}
       <Transition.Root show={open} as={Fragment}>
         <Dialog as="div" className="relative z-40 lg:hidden" onClose={setOpen}>
@@ -323,7 +322,7 @@ export default function Navbar() {
         </Dialog>
       </Transition.Root>
 
-      <header className="relative bg-transparent z-50">
+      <header className="relative bg-transparent z-90 ">
         {/* <p className="flex h-10 items-center justify-center bg-indigo-600 px-4 text-sm font-medium text-white sm:px-6 lg:px-8">
           Get free delivery on orders over $100
         </p> */}

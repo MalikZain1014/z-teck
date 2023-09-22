@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 export default function Footer() {
   return (
     <div>
-      <footer className="bg-gradient-to-r from-red-200 from-10% via-sky-300 via-30% to-emerald-300 to-90% ...  font-bold py-2 px-4">
+      <footer className="bg-zinc-300  font-bold py-2 px-4">
         <div className="max-w-screen-xl px-4 py-16 mx-auto sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 gap-8 lg:grid-cols-3 ">
             <div className="items-center justify-between">

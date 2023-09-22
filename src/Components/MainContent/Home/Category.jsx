@@ -1,61 +1,18 @@
-// import React, { useContext } from "react";
-// import StateContext from "../../Context/StateContext";
-const callouts = [
-  {
-    name: "Desk and Office",
-    description: "Work from home accessories",
-    // imageSrc: "../6.jpg",
-    imageAlt:
-      "Desk with leather desk pad, walnut desk organizer, wireless keyboard and mouse, and porcelain mug.",
-    href: "#",
-  },
-  {
-    name: "Self-Improvement",
-    description: "Journals and note-taking",
-    // imageSrc: "../7.jpg",
-    imageAlt:
-      "Wood table with porcelain mug, leather journal, brass pen, leather key ring, and a houseplant.",
-    href: "#",
-  },
-  {
-    name: "Travel",
-    description: "Daily commute essentials",
-    // imageSrc: "../8.jpg",
-    imageAlt: "Collection of four insulated travel bottles on wooden shelf.",
-    href: "#",
-  },
-  {
-    name: "Desk and Offices",
-    description: "Work from home accessories",
-    // imageSrc: "../8.jpg",
-    imageAlt:
-      "Desk with leather desk pad, walnut desk organizer, wireless keyboard and mouse, and porcelain mug.",
-    href: "#",
-  },
-  {
-    name: "Self-Improvements",
-    description: "Journals and note-taking",
-    // imageSrc: "../9.jpg",
-    imageAlt:
-      "Wood table with porcelain mug, leather journal, brass pen, leather key ring, and a houseplant.",
-    href: "#",
-  },
-  {
-    name: "Travels",
-    description: "Daily commute essentials",
-    // imageSrc:
-    //   "https://tailwindui.com/img/ecommerce-images/home-page-02-edition-03.jpg",
-    imageAlt: "Collection of four insulated travel bottles on wooden shelf.",
-    href: "#",
-  },
-];
+import React from "react";
+import { useProducts } from "../../Context/StateContext";
 
 export default function Category() {
-  // const { isLoading, featureProducts } = StateContext;
-  // console.log(
-  //   "🚀 ~ file: Category.jsx:55 ~ Category ~ featureProducts:",
-  //   featureProducts
-  // );
+  const { featureProducts, isLoading, isError } = useProducts();
+
+  if (isLoading) {
+    // Display a loading indicator while data is being fetched
+    return <p>Loading...</p>;
+  }
+
+  if (isError) {
+    // Display an error message if there was an error during data fetching
+    return <p>Error fetching data.</p>;
+  }
 
   return (
     <>
@@ -65,23 +22,23 @@ export default function Category() {
             <h2 className="text-2xl font-bold text-gray-900">Collections</h2>
 
             <div className="mt-6 space-y-12 lg:grid lg:grid-cols-3 lg:gap-x-6 lg:space-y-0">
-              {callouts.map((callout) => (
-                <div key={callout.name} className="group relative mb-6">
-                  <div className="relative h-80 w-full overflow-hidden rounded-lg bg-white sm:aspect-h-1 sm:aspect-w-2 lg:aspect-h-1 lg:aspect-w-1 group-hover:opacity-75 sm:h-64">
+              {featureProducts.map((product) => (
+                <div key={product.id} className="group relative mb-6">
+                  <div className="relative h-full  w-full overflow-hidden rounded-lg bg-white md:aspect-h-1 md:aspect-w-1 sm:aspect-h-1 sm:aspect-w-2 lg:aspect-h-1 lg:aspect-w-1 group-hover:opacity-75 sm:h-64 shadow-lg dark:shadow-black/30">
                     <img
-                      src={callout.imageSrc}
-                      alt={callout.imageAlt}
-                      className="h-full w-full object-cover object-center"
+                      src={product.image}
+                      alt={product.image}
+                      className="h-full w-full  object-center"
                     />
                   </div>
                   <h3 className="mt-6 text-sm text-gray-500">
-                    <a href={callout.href}>
+                    <a href={product.href}>
                       <span className="absolute inset-0" />
-                      {callout.name}
+                      {product.category}
                     </a>
                   </h3>
-                  <p className="text-base  font-semibold text-gray-900">
-                    {callout.description}
+                  <p className="text-base font-semibold text-gray-900">
+                    {product.title}
                   </p>
                 </div>
               ))}
