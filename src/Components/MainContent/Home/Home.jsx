@@ -6,9 +6,13 @@ import TrustCompany from "./TrustCompany";
 export default function Home() {
   return (
     <div>
-      <TopSlider />
-      <Category />
-      <TrustCompany />
+      <MemoizedTopSlider />
+      <MemoizedCategory />
+      <MemoizedTrustCompany />
     </div>
   );
 }
+
+const MemoizedTopSlider = React.memo(TopSlider);
+const MemoizedCategory = React.memo(Category);
+const MemoizedTrustCompany = React.memo(TrustCompany);

@@ -1,4 +1,4 @@
-import { Fragment, useState } from "react";
+import { Fragment, useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Dialog, Popover, Tab, Transition } from "@headlessui/react";
 import {
@@ -134,7 +134,7 @@ const navigation = {
   ],
   pages: [
     { name: "Company", href: "/category" },
-    { name: "Stores", href: "/filtproduct" },
+    { name: "Stores", href: "/product/:id" },
   ],
 };
 
@@ -144,9 +144,14 @@ function classNames(...classes) {
 
 export default function Navbar() {
   const [open, setOpen] = useState(false);
-
+  const [isActive, setIsActive] = useState(false);
+  useEffect(() => {
+    window.addEventListener("scroll", () => {
+      window.scrollY > 60 ? setIsActive(true) : setIsActive(false);
+    });
+  });
   return (
-    <div className="bg-green-100 sticky top-0 z-10">
+    <div className="pb-16">
       {/* Mobile menu */}
       <Transition.Root show={open} as={Fragment}>
         <Dialog as="div" className="relative z-40 lg:hidden" onClose={setOpen}>
@@ -322,14 +327,18 @@ export default function Navbar() {
         </Dialog>
       </Transition.Root>
 
-      <header className="relative bg-transparent z-90 ">
+      <header
+        className={`${
+          isActive ? " bg-white py-0 shadow-md" : "bg-none py-0"
+        }  fixed w-full z-10 lg:px-8 transition-all`}
+      >
         {/* <p className="flex h-10 items-center justify-center bg-indigo-600 px-4 text-sm font-medium text-white sm:px-6 lg:px-8">
           Get free delivery on orders over $100
         </p> */}
 
         <nav
           aria-label="Top"
-          className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8"
+          className="mx-auto  max-w-7xl px-4 sm:px-6 lg:px-8"
         >
           <div className="border-b border-gray-200">
             <div className="flex h-16 items-center">
@@ -529,10 +538,7 @@ export default function Navbar() {
 
                 {/* Cart */}
                 <div className="ml-4 flow-root lg:ml-6">
-                  <Link
-                    to="/shoppingcard"
-                    className="group -m-2 flex items-center p-2"
-                  >
+                  <Link to="/" className="group -m-2 flex items-center p-2">
                     <ShoppingBagIcon
                       className="h-6 w-6 flex-shrink-0 text-gray-400 group-hover:text-blue-600"
                       aria-hidden="true"

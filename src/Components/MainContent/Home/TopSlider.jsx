@@ -1,60 +1,55 @@
-import React from "react";
+import React, { useMemo } from "react";
 import { Carousel } from "react-carousel-minimal";
-import { useProducts } from "../../Context/StateContext";
+import { DataSlider } from "../../Context/images/DataSlider";
 
-export default function TopSlider() {
-  const { topSlider } = useProducts();
+const captionStyle = {
+  // Add CSS styles here
+  color: "red",
+  fontSize: "1.5em",
+  fontWeight: "bold",
+};
 
-  if (!topSlider || topSlider.length === 0) {
+function TopSlider() {
+  const data = useMemo(
+    () =>
+      DataSlider.map((slide, index) => ({
+        image: slide.img,
+        // Use the Caption component here
+        key: index,
+      })),
+    []
+  );
+
+  if (!DataSlider || DataSlider.length === 0) {
     return <p>No data available.</p>;
   }
-
-  const captionStyle = {
-    color: "lightred",
-    fontSize: "1.5em",
-    fontWeight: "bold",
-  };
-
-  const slideNumberStyle = {
-    fontSize: "20px",
-    fontWeight: "bold",
-  };
-
-  const data = topSlider.map((slide) => ({
-    image: slide.image,
-    caption: slide.title,
-  }));
 
   return (
     <div>
       <div style={{ textAlign: "center" }}>
-        <div
-          style={{
-            padding: "0px",
-          }}
-        >
+        <div className="contain" style={{ padding: "0px" }}>
           <Carousel
             data={data}
             time={5000}
-            width="full"
-            height="600px"
-            captionStyle={captionStyle}
-            radius="0px 0px 16px 16px"
+            width="100%"
+            height="500px"
+            radius="8px"
+            border="none"
             slideNumber={false}
-            slideNumberStyle={slideNumberStyle}
+            captionStyle={captionStyle}
             captionPosition="bottom"
             automatic={true}
-            dots={true}
+            // dots={true}
             pauseIconColor="blue"
             pauseIconSize="40px"
             slideBackgroundColor="white"
-            slideImageFit="contain"
+            slideImageFit="cover"
             thumbnails={false}
             thumbnailWidth="100px"
             style={{
               textAlign: "center",
-              maxWidth: "full",
-              maxHeight: "600px",
+              maxWidth: "100%",
+              maxHeight: "500px",
               margin: "0px auto",
             }}
           />
@@ -63,3 +58,5 @@ export default function TopSlider() {
     </div>
   );
 }
+
+export default React.memo(TopSlider);
