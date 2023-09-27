@@ -1,6 +1,6 @@
 import React from "react";
 import { useProducts } from "../../Context/StateContext";
-import { NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 export default function Category() {
   const { featureProducts, isLoading, isError } = useProducts();
@@ -29,12 +29,12 @@ export default function Category() {
                   {...product}
                   className="group relative mb-6"
                 >
-                  <NavLink to={`/singleproduct/${product.name}`}>
-                    <div className="relative h-80 w-full overflow-hidden rounded-lg bg-white sm:aspect-h-1 sm:aspect-w-2 lg:aspect-h-1 lg:aspect-w-1 group-hover:opacity-75 sm:h-64 shadow-lg dark:shadow-black/30">
+                  <Link to={`/allproduct/${product.category}`}>
+                    <div className="relative h-80 w-full overflow-hidden rounded-lg bg-white sm:aspect-h-1 sm:aspect-w-1 lg:aspect-h-1 lg:aspect-w-1 group-hover:opacity-75 sm:h-4 shadow-lg dark:shadow-black/30">
                       <img
                         src={product.image}
                         alt={product.image}
-                        className="h-full w-full object-cover object-center"
+                        className="h-auto px-8 w-auto object-fixed object-center"
                       />
                     </div>
                     <h3 className="mt-6 text-sm text-gray-500">
@@ -44,7 +44,7 @@ export default function Category() {
                     <p className="text-base font-semibold text-gray-900">
                       {product.category}
                     </p>
-                  </NavLink>
+                  </Link>
                 </div>
               ))}
             </div>

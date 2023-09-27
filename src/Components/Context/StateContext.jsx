@@ -1,4 +1,5 @@
 import React, { useEffect, createContext, useContext, useReducer } from "react";
+import Data from "../../Data.json"; // Import the local JSON file
 
 const ProductContext = createContext();
 
@@ -11,11 +12,8 @@ const initialState = {
   featureProducts: [],
   allProducts: [],
   categories: [],
-  isLoading: true,
+  isLoading: true, // Initialize isLoading as true
   isError: false,
-  cart: [],
-  isSingleLoading: false, // Add isSingleLoading property
-  singleProduct: {}, // Add singleProduct property
 };
 
 const reducer = (state, action) => {
@@ -24,16 +22,12 @@ const reducer = (state, action) => {
       return { ...state, products: action.payload, isLoading: false };
     case "SET_FEATURE_PRODUCTS":
       return { ...state, featureProducts: action.payload };
+    case "SET_TOP_SLIDER":
+      return { ...state, topSlider: action.payload };
     case "SET_LOADING":
       return { ...state, isLoading: action.payload };
     case "SET_ERROR":
       return { ...state, isError: action.payload, isLoading: false };
-    case "ADD_TO_CART":
-      return { ...state, cart: [...state.cart, action.payload] };
-    case "SET_SINGLE_LOADING": // Action type for setting isSingleLoading
-      return { ...state, isSingleLoading: action.payload };
-    case "SET_SINGLE_PRODUCT": // Action type for setting singleProduct
-      return { ...state, singleProduct: action.payload };
     default:
       return state;
   }
@@ -43,59 +37,95 @@ const StateContext = (props) => {
   const [state, dispatch] = useReducer(reducer, initialState);
 
   useEffect(() => {
-    fetch("https://api.pujakaitem.com/api/products")
-      .then(function (response) {
-        if (!response.ok) {
-          throw new Error("Network response was not ok");
-        }
-        return response.json();
-      })
-      .then(function (url) {
-        dispatch({ type: "SET_PRODUCTS", payload: url });
+    // Use the imported local JSON data instead of Axios
+    const products = Data; // Data is now the imported JSON file
 
-        const featureProducts = url.filter(
-          (product) => product.featured === true
-        );
+    if (products && products) {
+      dispatch({ type: "SET_PRODUCTS", payload: products });
 
-        dispatch({ type: "SET_FEATURE_PRODUCTS", payload: featureProducts });
-      })
-      .catch(function (error) {
-        console.error("There was a problem with the fetch operation:", error);
-        dispatch({ type: "SET_ERROR", payload: true });
-      });
+      // Filter myJson.products to get only feature products
+      const featureProducts = products.filter(
+        (product) => product.feature === true
+      );
+
+      // You can similarly filter for topSlider
+
+      dispatch({ type: "SET_FEATURE_PRODUCTS", payload: featureProducts });
+      // dispatch({ type: "SET_TOP_SLIDER", payload: topSlider });
+    } else {
+      // Handle the case where myJson or myJson.products is undefined
+      dispatch({ type: "SET_ERROR", payload: true });
+    }
   }, []);
 
-  const addToCart = (item) => {
-    dispatch({ type: "ADD_TO_CART", payload: item });
-  };
-
-  const getCartItems = () => {
-    return state.cart;
-  };
-
-  // Function to set isSingleLoading
-  const singleLoading = (isLoading) => {
-    dispatch({ type: "SET_SINGLE_LOADING", payload: isLoading });
-  };
-
-  // Function to set singleProduct
-  const singleProduct = (product) => {
-    dispatch({ type: "SET_SINGLE_PRODUCT", payload: singleProduct });
-  };
-
   return (
-    <ProductContext.Provider
-      value={{
-        ...state,
-        addToCart,
-        getCartItems,
-        singleLoading, // Add setSingleLoading to context
-        singleProduct, // Add setSingleProduct to context
-      }}
-    >
+    <ProductContext.Provider value={{ ...state }}>
       {props.children}
     </ProductContext.Provider>
   );
 };
 
 export default StateContext;
+
+// import { createContext, useContext, useEffect, useReducer } from "react";
+// import axios from "axios";
+// import reducer from "./UseReducer";
+
+// const ProductContext = createContext();
+
+// const API = "https://api.pujakaitem.com/api/products";
+
+// const initialState = {
+//   isLoading: false,
+//   isError: false,
+//   products: [],
+//   featureProducts: [],
+//   isSingleLoading: false,
+//   singleProduct: {},
+// };
+
+// const StateContext = ({ children }) => {
+//   const [state, dispatch] = useReducer(reducer, initialState);
+
+//   const getProducts = async (url) => {
+//     dispatch({ type: "SET_LOADING" });
+//     try {
+//       const res = await axios.get(url);
+//       const products = await res.data;
+//       dispatch({ type: "SET_API_DATA", payload: products });
+//     } catch (error) {
+//       dispatch({ type: "API_ERROR" });
+//     }
+//   };
+
+//   // my 2nd api call for single product
+
+//   const getSingleProduct = async (url) => {
+//     dispatch({ type: "SET_SINGLE_LOADING" });
+//     try {
+//       const res = await axios.get(url);
+//       const singleProduct = await res.data;
+//       dispatch({ type: "SET_SINGLE_PRODUCT", payload: singleProduct });
+//     } catch (error) {
+//       dispatch({ type: "SET_SINGLE_ERROR" });
+//     }
+//   };
+
+//   useEffect(() => {
+//     getProducts(API);
+//   }, []);
+
+//   return (
+//     <ProductContext.Provider value={{ ...state, getSingleProduct }}>
+//       {children}
+//     </ProductContext.Provider>
+//   );
+// };
+
+// // custom hooks
+
+// export const useProducts = () => {
+//   return useContext(ProductContext);
+// };
+
+// export default StateContext;

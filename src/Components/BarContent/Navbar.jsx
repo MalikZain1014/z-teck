@@ -4,9 +4,11 @@ import { Dialog, Popover, Tab, Transition } from "@headlessui/react";
 import {
   Bars3Icon,
   MagnifyingGlassIcon,
-  ShoppingBagIcon,
   XMarkIcon,
 } from "@heroicons/react/24/outline";
+import logo from "../Context/images/favicon.png";
+import { useCardProducts } from "../Context/CardState";
+import { BsBag } from "react-icons/bs";
 
 const navigation = {
   categories: [
@@ -145,6 +147,9 @@ function classNames(...classes) {
 export default function Navbar() {
   const [open, setOpen] = useState(false);
   const [isActive, setIsActive] = useState(false);
+
+  const { itemAmount, isOpen, setIsOpen } = useCardProducts();
+
   useEffect(() => {
     window.addEventListener("scroll", () => {
       window.scrollY > 60 ? setIsActive(true) : setIsActive(false);
@@ -358,10 +363,10 @@ export default function Navbar() {
                   <span className="sr-only">Your Company</span>
                   <img
                     className="h-8 w-auto hover:opacity-75"
-                    src="../favicon.png"
+                    src={logo}
                     alt=""
                   />
-                  <strong className="flex my-1.5 text-blue-700 hover:text-blue-500 ">
+                  <strong className="flex my-1.5 text-red-500 hover:text-blue-500 ">
                     MALIK
                   </strong>
                 </div>
@@ -538,21 +543,15 @@ export default function Navbar() {
 
                 {/* Cart */}
                 <div className="ml-4 flow-root lg:ml-6">
-                  <Link to="/" className="group -m-2 flex items-center p-2">
-                    <ShoppingBagIcon
-                      className="h-6 w-6 flex-shrink-0 text-gray-400 group-hover:text-blue-600"
-                      aria-hidden="true"
-                    />
-                    <span className="ml-2 text-sm font-medium text-gray-700 group-hover:text-blue-600">
-                      0
-                    </span>
-                    <span
-                      className="sr-only"
-                      onClick={() => {
-                        setOpen(true);
-                      }}
-                    ></span>
-                  </Link>
+                  <div
+                    onClick={() => setIsOpen(!isOpen)}
+                    className="cursor-pointer flex relative"
+                  >
+                    <BsBag className="text-2xl" />
+                    <div className="bg-red-500 absolute -right-2 -bottom-2 text-[12px] w-[18px] h-[18px] text-white rounded-full flex justify-center items-center">
+                      {itemAmount}
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
