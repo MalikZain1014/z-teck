@@ -38,7 +38,7 @@ function TopSlider() {
             slideNumber={false}
             captionStyle={captionStyle}
             captionPosition="bottom"
-            automatic={"true"}
+            automatic={true}
             // dots={true}
             pauseIconColor="blue"
             pauseIconSize="40px"

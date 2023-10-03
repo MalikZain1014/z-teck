@@ -4,9 +4,13 @@ export const CartContext = createContext();
 export const useCardProducts = () => {
   return useContext(CartContext);
 };
+const CART_STORAGE_KEY = "cartData";
 const CartProvider = ({ children }) => {
   // cart state
-  const [cart, setCart] = useState([]);
+  const initialCartData =
+    JSON.parse(localStorage.getItem(CART_STORAGE_KEY)) || [];
+  const [cart, setCart] = useState(initialCartData);
+  // const [cart, setCart] = useState([]);
   // item amount state
   const [itemAmount, setItemAmount] = useState(0);
   // total price state
@@ -84,11 +88,17 @@ const CartProvider = ({ children }) => {
       removeFromCart(id);
     }
   };
+
   const [isOpen, setIsOpen] = useState(false);
 
   const handleClose = () => {
     setIsOpen(false);
   };
+
+  useEffect(() => {
+    // Save cart data to local storage whenever it changes
+    localStorage.setItem(CART_STORAGE_KEY, JSON.stringify(cart));
+  }, [cart]);
   return (
     <CartContext.Provider
       value={{

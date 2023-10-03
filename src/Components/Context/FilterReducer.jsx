@@ -1,58 +1,46 @@
-const ProductReducer = (state, action) => {
-
-
+const FilterReducer = (state, action) => {
   switch (action.type) {
-    case "SET_LOADING":
+    case "LOAD_FILTER_PRODUCTS":
       return {
         ...state,
-        isLoading: true,
+        filter_products: [...action.payload],
+        all_products: [...action.payload],
       };
 
-    case "SET_API_DATA":
-      const featureData = action.payload.filter((curElem) => {
-        return curElem.featured === true;
-      });
-
+    case "SET_GRID_VIEW":
       return {
         ...state,
-        isLoading: false,
-        products: action.payload,
-        featureProducts: featureData,
+        grid_view: true,
       };
 
-    case "API_ERROR":
+    case "SET_LIST_VIEW":
       return {
         ...state,
-        isLoading: false,
-        isError: true,
+        grid_view: false,
       };
 
-    case "SET_SINGLE_LOADING":
+    case "SET_SORT_OPTION":
       return {
         ...state,
-        isSingleLoading: true,
+        sorting_value: action.payload,
       };
 
-    case "SET_SINGLE_PRODUCT":
+    case "SET_FILTER":
       return {
         ...state,
-        isSingleLoading: false,
-        singleProduct: action.payload,
-      };
-
-    case "SET_SINGLE_ERROR":
-      return {
-        ...state,
-        isSingleLoading: false,
-        isError: true,
+        filters: {
+          ...state.filters,
+          [action.field]: action.value,
+        },
       };
 
     default:
       return state;
   }
 };
+export default FilterReducer;
+//
 
-export default ProductReducer;
 // // import React from "react";
 
 // const UseReducer = (state, action) => {

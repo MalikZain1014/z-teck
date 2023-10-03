@@ -1,5 +1,5 @@
 import React, { useEffect, createContext, useContext, useReducer } from "react";
-import Data from "../../Data.json"; // Import the local JSON file
+import Data from "../../Data.json";
 
 const ProductContext = createContext();
 
@@ -8,11 +8,10 @@ export const useProducts = () => {
 };
 
 const initialState = {
-  products: [],
+  products: [], // Initialize products as an empty array
   featureProducts: [],
-  allProducts: [],
-  categories: [],
-  isLoading: true, // Initialize isLoading as true
+  topSlider: null, // Initialize topSlider as null
+  isLoading: true,
   isError: false,
 };
 
@@ -33,35 +32,36 @@ const reducer = (state, action) => {
   }
 };
 
-const StateContext = (props) => {
+const StateContext = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
 
   useEffect(() => {
-    // Use the imported local JSON data instead of Axios
-    const products = Data; // Data is now the imported JSON file
+    try {
+      const products = Data;
 
-    if (products && products) {
-      dispatch({ type: "SET_PRODUCTS", payload: products });
+      if (products && products.length > 0) {
+        dispatch({ type: "SET_PRODUCTS", payload: products });
 
-      // Filter myJson.products to get only feature products
-      const featureProducts = products.filter(
-        (product) => product.feature === true
-      );
+        // Filter myJson.products to get only feature products
+        const featureProducts = products.filter(
+          (product) => product.feature === true
+        );
 
-      // You can similarly filter for topSlider
+        // You can similarly filter for topSlider
 
-      dispatch({ type: "SET_FEATURE_PRODUCTS", payload: featureProducts });
-      // dispatch({ type: "SET_TOP_SLIDER", payload: topSlider });
-    } else {
-      // Handle the case where myJson or myJson.products is undefined
+        dispatch({ type: "SET_FEATURE_PRODUCTS", payload: featureProducts });
+        // dispatch({ type: "SET_TOP_SLIDER", payload: topSlider });
+      } else {
+        dispatch({ type: "SET_ERROR", payload: true });
+      }
+    } catch (error) {
+      console.error("Error loading data:", error);
       dispatch({ type: "SET_ERROR", payload: true });
     }
   }, []);
 
   return (
-    <ProductContext.Provider value={{ ...state }}>
-      {props.children}
-    </ProductContext.Provider>
+    <ProductContext.Provider value={state}>{children}</ProductContext.Provider>
   );
 };
 

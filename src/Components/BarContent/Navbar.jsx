@@ -136,7 +136,7 @@ const navigation = {
   ],
   pages: [
     { name: "Company", href: "/category" },
-    { name: "Stores", href: "/product/:id" },
+    { name: "AllProducts", href: `/allproduct/:id` },
   ],
 };
 
@@ -152,7 +152,7 @@ export default function Navbar() {
 
   useEffect(() => {
     window.addEventListener("scroll", () => {
-      window.scrollY > 60 ? setIsActive(true) : setIsActive(false);
+      window.scrollY > 0 ? setIsActive(true) : setIsActive(false);
     });
   });
   return (
@@ -551,6 +551,7 @@ export default function Navbar() {
                     <div className="bg-red-500 absolute -right-2 -bottom-2 text-[12px] w-[18px] h-[18px] text-white rounded-full flex justify-center items-center">
                       {itemAmount}
                     </div>
+                    <span className="sr-only">items in cart, view bag</span>
                   </div>
                 </div>
               </div>

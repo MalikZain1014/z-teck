@@ -8,7 +8,10 @@ import {
   PlusIcon,
   Squares2X2Icon,
 } from "@heroicons/react/20/solid";
-import ProductList from "./ProductList";
+
+import { useProducts } from "../../Context/StateContext";
+
+import ProductView from "./ProductView";
 
 const sortOptions = [
   { name: "Most Popular", href: "#", current: true },
@@ -68,7 +71,15 @@ function classNames(...classes) {
 
 export default function FiltProduct() {
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
+  const { isLoading, isError } = useProducts();
 
+  if (isLoading) {
+    return <p>Loading...</p>;
+  }
+
+  if (isError) {
+    return <p>Error fetching data.</p>;
+  }
   return (
     <div className="bg-trasparent">
       <div>
@@ -194,7 +205,7 @@ export default function FiltProduct() {
         </Transition.Root>
 
         <main className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="flex items-baseline justify-between border-b border-blue-600 pb-6 pt-24">
+          <div className="flex items-baseline justify-between border-b border-blue-600 pb-6 pt-24 ">
             <h1 className="text-4xl font-bold tracking-tight text-gray-900">
               New Arrivals
             </h1>
@@ -264,13 +275,13 @@ export default function FiltProduct() {
           </div>
 
           <section aria-labelledby="products-heading" className="pb-24 ">
-            <h2 id="products-heading" className="sr-only">
+            <h2 id="products-heading" className="sr-only ">
               Products
             </h2>
 
-            <div className="grid grid-cols-1 gap-x-8 gap-y-10 lg:grid-cols-4">
+            <div className="grid grid-cols-4 gap-x-8 gap-y-10 lg:grid-cols-4 ">
               {/* Filters */}
-              <form className="hidden lg:block">
+              <form className="hidden lg:block ">
                 <h3 className="sr-only">Categories</h3>
                 <ul className="space-y-4 border-b border-blue-600 pb-6 text-sm font-medium text-gray-900">
                   {subCategories.map((category) => (
@@ -338,10 +349,8 @@ export default function FiltProduct() {
                   </Disclosure>
                 ))}
               </form>
+              <ProductView />
               {/* Product grid */}
-              <div className="lg:col-span-3">
-                <ProductList />
-              </div>
             </div>
           </section>
         </main>

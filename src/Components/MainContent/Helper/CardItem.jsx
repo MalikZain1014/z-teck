@@ -3,18 +3,16 @@ import { Link } from "react-router-dom";
 import { IoMdAdd, IoMdClose, IoMdRemove } from "react-icons/io";
 import { useCardProducts } from "../../Context/CardState";
 
-const CartItem = ({ item }) => {
+const CardItem = React.memo(({ item }) => {
   const { removeFromCart, increaseAmount, decreaseAmount } = useCardProducts();
-  // destructure item
+
   const { id, title, image, price, amount } = item;
-  console.log("🚀 ~ file: CardItem.jsx:10 ~ CartItem ~ image:", image);
-  console.log("🚀 ~ file: CardItem.jsx:10 ~ CartItem ~ item:", item);
 
   return (
     <div className="relative flex gap-x-4 py-2 lg:px-6 border-b border-gray-200 w-full font-light text-gray-500">
       <div className="w-full min-h-[150px] flex items-center gap-x-4">
         {/* image */}
-        <Link to={`/product/${id}`}>
+        <Link to={`/allproduct/${item.category}/${item.id}`}>
           <img className="max-w-[80px]" src={image} alt="" />
         </Link>
         <div className="w-full flex flex-col">
@@ -22,7 +20,7 @@ const CartItem = ({ item }) => {
           <div className="flex justify-between mb-2">
             {/* title */}
             <Link
-              to={`/product/${id}`}
+              to={`/allproduct/${item.category}/${item.id}`}
               className="text-sm uppercase font-medium max-w-[240px] text-primary hover:underline"
             >
               {title}
@@ -67,6 +65,6 @@ const CartItem = ({ item }) => {
       </div>
     </div>
   );
-};
+});
 
-export default CartItem;
+export default CardItem;
