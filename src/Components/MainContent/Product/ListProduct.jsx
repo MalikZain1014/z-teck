@@ -1,123 +1,53 @@
-import { NavLink } from "react-router-dom";
-import styled from "styled-components";
+// import Link from "react-router-dom";
+
+import { useCardProducts } from "../../Context/CardState";
 
 // import { Button } from "../styles/Button";
 
-const ListProduct = ({ product }) => {
+const ListProduct = ({ products }) => {
+  const { addToCart } = useCardProducts();
   return (
-    <Wrapper className="section">
-      <div className="container grid">
-        {product.map((product) => {
+    <div className=" ">
+      <div className=" grid">
+        {products.map((product) => {
+          const { image, title, description, price } = product;
+          const Description = description.slice(0, 99);
           return (
-            <div className="card grid grid-two-column">
-              <figure>
-                <img src={product.image} alt={product.title} />
-              </figure>
-
-              <div className="card-data">
-                <h3>{product.title}</h3>
-                <p>price={product.price}</p>
-                <p>{product.description.slice(0, 90)}...</p>
-
-                <NavLink
-                  to={`/singleproduct/${product.id}`}
-                  className="btn-main"
-                >
-                  <button className="btn">Read More</button>
-                </NavLink>
+            <section
+              className="overflow-hedden p-20 md:pb-12  h-full flex items-center  "
+              key={product.id}
+            >
+              <div className="container mx-auto">
+                {/* image and text wrapper */}
+                <div className="flex  items-center key={product.id}">
+                  {/* image */}
+                  <div className="flex flex-1 justify-center items-center mb-8 lg:mb-0">
+                    <img className="max-w-20 max-w-xs" src={image} alt="" />
+                  </div>
+                  {/* text */}
+                  <div className="flex-1 pl-20 text-left">
+                    <h1 className="text-lm font-medium mb-2 max-w-[450px] mx-auto lg:mx-0">
+                      {title}
+                    </h1>
+                    <div className="text-2xl text-red-500 font-medium mb-6">
+                      $ {price}
+                    </div>
+                    <p className="mb-8 text-sm ">{Description}...</p>
+                    <button
+                      onClick={() => addToCart(product, product.id)}
+                      className="bg-blue-500 py-4 px-8 text-white"
+                    >
+                      Add to cart
+                    </button>
+                  </div>
+                </div>
               </div>
-            </div>
+            </section>
           );
         })}
       </div>
-    </Wrapper>
+    </div>
   );
 };
-
-const Wrapper = styled.section`
-  padding: 9rem 0;
-
-  .container {
-    max-width: 120rem;
-  }
-
-  .grid {
-    gap: 3.2rem;
-  }
-
-  figure {
-    width: auto;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: relative;
-    overflow: hidden;
-    transition: all 0.5s linear;
-    &::after {
-      content: "";
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 0%;
-      height: 100%;
-      background-color: rgba(0, 0, 0, 0.5);
-      transition: all 0.2s linear;
-      cursor: pointer;
-    }
-    &:hover::after {
-      width: 100%;
-    }
-    &:hover img {
-      transform: scale(1.2);
-    }
-    img {
-      max-width: 90%;
-      margin-top: 1.5rem;
-      height: 20rem;
-      transition: all 0.2s linear;
-    }
-  }
-
-  .card {
-    border: 0.1rem solid rgb(170 170 170 / 40%);
-
-    .card-data {
-      padding: 0 2rem;
-    }
-
-    h3 {
-      margin: 2rem 0;
-      font-weight: 300;
-      font-size: 2.4rem;
-      text-transform: capitalize;
-    }
-
-    .btn {
-      margin: 2rem 0;
-      background-color: rgb(0 0 0 / 0%);
-      border: 0.1rem solid rgb(98 84 243);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      color: rgb(98 84 243);
-
-      &:hover {
-        background-color: rgb(98 84 243);
-      }
-
-      &:hover a {
-        color: #fff;
-      }
-      a {
-        color: rgb(98 84 243);
-        font-size: 1.4rem;
-      }
-    }
-
-    .btn-main .btn:hover {
-      color: #fff;
-    }
-  }
-`;
 
 export default ListProduct;

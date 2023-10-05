@@ -3,14 +3,14 @@ import GridProduct from "./GridProduct";
 import ListProduct from "./ListProduct";
 import { useFilterProducts } from "../../Context/FilterState";
 
-const ProductView = () => {
-  const { filter_products, grid_view } = useFilterProducts();
+const ProductView = ({ products }) => {
+  const { grid_view } = useFilterProducts();
 
   if (grid_view === true) {
-    return <GridProduct product={filter_products} />;
+    return <GridProduct products={products} />;
   }
   if (grid_view === false) {
-    return <ListProduct product={filter_products} />;
+    return <ListProduct products={products} />;
   }
 };
 export default ProductView;

@@ -20,23 +20,23 @@ export default function Category() {
           <div className="mx-auto max-w-2xl py-16 sm:py-24 lg:max-w-none lg:py-16">
             <h2 className="text-2xl font-bold text-gray-900">Collections</h2>
 
-            <div className="mt-6 space-y-12 sm:grid-cols-2 lg:grid lg:grid-cols-3 lg:gap-y-16 lg:gap-x-24 lg:space-y-0">
+            <div className="mt-6  grid     grid-cols-2  col-span-4 lg:col-span-3 gap-x-12 gap-y-6 lg:grid-cols-3 xl:gap-x-24 xl:gap-y-12">
               {featureProducts.map((product) => (
                 <div key={product.id} className="group relative mb-6">
                   <Link
-                    to={`/${product.category}`}
+                    to=""
                     // onClick={() => <ProductList />}
                   >
-                    <div className="relative h-80 w-full overflow-hidden rounded-lg bg-white sm:aspect-h-1 sm:aspect-w-1 lg:aspect-h-1 lg:aspect-w-1 group-hover:opacity-75 sm:h-4 shadow-lg dark:shadow-black/30">
+                    <div className="aspect-h-1 aspect-w-1  overflow- rounded-md bg-gray-200 lg:aspect-none group-hover:opacity-75 lg:h-80 shadow-lg dark:shadow-black/30">
                       <img
                         src={product.image}
                         alt={product.image}
-                        className="h-auto px-8 w-auto object-fixed object-center"
+                        className="h-full w-full rounded-lg object-fixed object-center lg:h-full lg:w-full"
                       />
                     </div>
                     <h3 className="mt-6 text-sm text-gray-500">
                       <span className="absolute inset-0" />
-                      {product.name}
+                      {product.title}
                     </h3>
                     <p className="text-base font-semibold text-gray-900">
                       {product.category}

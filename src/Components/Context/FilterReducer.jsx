@@ -33,6 +33,11 @@ const FilterReducer = (state, action) => {
           [action.field]: action.value,
         },
       };
+    case "SELECT_SUBCATEGORY":
+      return {
+        ...state,
+        selectedSubcategory: action.payload,
+      };
 
     default:
       return state;

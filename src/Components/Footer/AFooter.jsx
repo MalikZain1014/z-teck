@@ -13,7 +13,7 @@ const stats = [
 
 export default function AFooter() {
   return (
-    <div className="relative overflow-hidden bg-green-100 py-12 sm:py-12">
+    <div className="relative overflow-hidden bg-white-100 py-12 sm:py-12">
       <div
         className="hidden sm:absolute sm:-top-10 sm:right-1/2 sm:-z-10 sm:mr-10 sm:block sm:transform-gpu sm:blur-3xl"
         aria-hidden="true"

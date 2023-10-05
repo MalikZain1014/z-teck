@@ -1,4 +1,4 @@
-import { Fragment, useState } from "react";
+import React, { Fragment, useState } from "react";
 import { Dialog, Disclosure, Menu, Transition } from "@headlessui/react";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import {
@@ -11,7 +11,10 @@ import {
 
 import { useProducts } from "../../Context/StateContext";
 
+import { useFilterProducts } from "../../Context/FilterState";
 import ProductView from "./ProductView";
+import { Link } from "react-router-dom";
+import { BsList } from "react-icons/bs";
 
 const sortOptions = [
   { name: "Most Popular", href: "#", current: true },
@@ -20,13 +23,13 @@ const sortOptions = [
   { name: "Price: Low to High", href: "#", current: false },
   { name: "Price: High to Low", href: "#", current: false },
 ];
-const subCategories = [
-  { name: "Totes", href: "#" },
-  { name: "Backpacks", href: "#" },
-  { name: "Travel Bags", href: "#" },
-  { name: "Hip Bags", href: "#" },
-  { name: "Laptop Sleeves", href: "#" },
-];
+// const subCategories = [
+//   { name: "Totes", href: "#" },
+//   { name: "Backpacks", href: "#" },
+//   { name: "Travel Bags", href: "#" },
+//   { name: "Hip Bags", href: "#" },
+//   { name: "Laptop Sleeves", href: "#" },
+// ];
 const filters = [
   {
     id: "color",
@@ -72,7 +75,10 @@ function classNames(...classes) {
 export default function FiltProduct() {
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
   const { isLoading, isError } = useProducts();
-
+  const { filter_products, setGridView, setListView, grid_view } =
+    useFilterProducts();
+  const [selectedCategory, setSelectedCategory] = useState(null);
+  const MemoizedProductView = React.memo(ProductView);
   if (isLoading) {
     return <p>Loading...</p>;
   }
@@ -80,6 +86,18 @@ export default function FiltProduct() {
   if (isError) {
     return <p>Error fetching data.</p>;
   }
+  const uniqueCategories = [
+    ...new Set(filter_products.map((product) => product.category)),
+  ];
+  const handleCategoryClick = (category) => {
+    setSelectedCategory(category);
+  };
+  const filteredProducts =
+    selectedCategory === null
+      ? filter_products
+      : filter_products.filter(
+          (product) => product.category === selectedCategory
+        );
   return (
     <div className="bg-trasparent">
       <div>
@@ -112,14 +130,14 @@ export default function FiltProduct() {
                 leaveFrom="translate-x-0"
                 leaveTo="translate-x-full"
               >
-                <Dialog.Panel className="relative ml-auto flex h-full w-full max-w-xs flex-col overflow-y-auto bg-blue-200  py-4 pb-12 shadow-xl">
+                <Dialog.Panel className="relative ml-auto flex h-full w-full max-w-xs flex-col overflow-y-auto bg-white  py-4 pb-12 shadow-xl">
                   <div className="flex items-center justify-between px-4">
                     <h2 className="text-lg font-medium text-gray-900">
                       Filters
                     </h2>
                     <button
                       type="button"
-                      className="-mr-2 flex h-10 w-10 items-center justify-center rounded-md bg-blue-200 p-2 text-gray-400"
+                      className="-mr-2 flex h-10 w-10 items-center justify-center rounded-md bg-red-500 p-2 text-white"
                       onClick={() => setMobileFiltersOpen(false)}
                     >
                       <span className="sr-only">Close menu</span>
@@ -131,12 +149,18 @@ export default function FiltProduct() {
                   <form className="mt-4 border-t border-blue-600">
                     <h3 className="sr-only">Categories</h3>
                     <ul className="px-2 py-3 font-medium text-gray-900">
-                      {subCategories.map((category) => (
-                        <li key={category.name}>
-                          <a href={category.href} className="block px-2 py-3">
-                            {category.name}
-                          </a>
-                        </li>
+                      {uniqueCategories.map((category) => (
+                        <div
+                          key={category}
+                          className={`${
+                            selectedCategory === category
+                              ? "text-white bg-blue-700  "
+                              : "bg-white hover:text-blue-900"
+                          } px-4 py-2 rounded mr-2 mb-2 capitalize`}
+                          onClick={() => handleCategoryClick(category)}
+                        >
+                          {category}
+                        </div>
                       ))}
                     </ul>
 
@@ -149,7 +173,7 @@ export default function FiltProduct() {
                         {({ open }) => (
                           <>
                             <h3 className="-mx-2 -my-3 flow-root">
-                              <Disclosure.Button className="flex w-full items-center justify-between bg-blue-200 px-2 py-3 text-gray-400 hover:text-gray-500">
+                              <Disclosure.Button className="flex w-full items-center justify-between bg-white px-2 py-3 text-gray-400 hover:text-gray-500">
                                 <span className="font-medium text-gray-900">
                                   {section.name}
                                 </span>
@@ -197,6 +221,16 @@ export default function FiltProduct() {
                         )}
                       </Disclosure>
                     ))}
+                    <div
+                      className={`${
+                        selectedCategory === null
+                          ? "text-white bg-blue-700 "
+                          : "bg-red-600 hover:text-white text-gray-100"
+                      } px-4 py-2 rounded mx-1 mt-2`}
+                      onClick={() => handleCategoryClick(null)} // Correct
+                    >
+                      CLEAR ALL
+                    </div>
                   </form>
                 </Dialog.Panel>
               </Transition.Child>
@@ -258,11 +292,29 @@ export default function FiltProduct() {
 
               <button
                 type="button"
-                className="-m-2 ml-5 p-2 text-gray-400 hover:text-gray-500 sm:ml-7"
+                className={
+                  grid_view
+                    ? " active -m-2 ml-2 p-2 text-gray-800 hover:text-white sm:ml-7"
+                    : "-m-2 ml-2 p-2 text-gray-600 hover:text-gray-700 sm:ml-7"
+                }
+                onClick={setGridView}
               >
                 <span className="sr-only">View grid</span>
                 <Squares2X2Icon className="h-5 w-5" aria-hidden="true" />
               </button>
+              <button
+                type="button"
+                className={
+                  !grid_view
+                    ? " active -m-2 ml-2 p-2 text-gray-800 hover:text-white sm:ml-7"
+                    : "-m-2 ml-2 p-2 text-gray-600 hover:text-gray-700 sm:ml-7"
+                }
+                onClick={setListView}
+              >
+                <span className="sr-only">View grid</span>
+                <BsList className="h-5 w-5 " aria-hidden="true" />
+              </button>
+
               <button
                 type="button"
                 className="-m-2 ml-4 p-2 text-gray-400 hover:text-gray-500 sm:ml-6 lg:hidden"
@@ -283,12 +335,19 @@ export default function FiltProduct() {
               {/* Filters */}
               <form className="hidden lg:block ">
                 <h3 className="sr-only">Categories</h3>
-                <ul className="space-y-4 border-b border-blue-600 pb-6 text-sm font-medium text-gray-900">
-                  {subCategories.map((category) => (
-                    <li key={category.name}>
-                      <a href={category.href}>{category.name}</a>
-                    </li>
-                  ))}
+                <ul className="px-2 py-3 font-medium text-gray-900">
+                  <Link className="mb-4 text-">
+                    {uniqueCategories.map((category) => (
+                      <div
+                        key={category}
+                        className={`${selectedCategory === category}
+                           border-b border-gray-200 pt-6 capitalize text-sm font-medium text-gray-900`}
+                        onClick={() => handleCategoryClick(category)}
+                      >
+                        {category}
+                      </div>
+                    ))}
+                  </Link>
                 </ul>
 
                 {filters.map((section) => (
@@ -348,9 +407,21 @@ export default function FiltProduct() {
                     )}
                   </Disclosure>
                 ))}
+                <Link to="">
+                  <div
+                    className={`${
+                      selectedCategory === null
+                        ? "text-white bg-blue-700 "
+                        : "bg-red-600 hover:text-white text-gray-100"
+                    } px-4 py-2 rounded mt-2`}
+                    onClick={() => handleCategoryClick(null)} // Correct
+                  >
+                    CLEAR ALL
+                  </div>
+                </Link>
               </form>
-              <ProductView />
-              {/* Product grid */}
+
+              <MemoizedProductView products={filteredProducts} />
             </div>
           </section>
         </main>
