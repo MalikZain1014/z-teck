@@ -6,14 +6,12 @@ export const useCardProducts = () => {
 };
 const CART_STORAGE_KEY = "cartData";
 const CartProvider = ({ children }) => {
-  // cart state
   const initialCartData =
     JSON.parse(localStorage.getItem(CART_STORAGE_KEY)) || [];
   const [cart, setCart] = useState(initialCartData);
-  // const [cart, setCart] = useState([]);
-  // item amount state
+
   const [itemAmount, setItemAmount] = useState(0);
-  // total price state
+
   const [total, setTotal] = useState(0);
 
   useEffect(() => {
@@ -23,7 +21,6 @@ const CartProvider = ({ children }) => {
     setTotal(total);
   }, [cart]);
 
-  // update item amount
   useEffect(() => {
     if (cart) {
       const amount = cart.reduce((accumulator, currentItem) => {

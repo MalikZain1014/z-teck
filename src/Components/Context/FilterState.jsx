@@ -37,6 +37,25 @@ const reducer = (state, action) => {
           [action.field]: action.value,
         },
       };
+    case "SORT_HIGHEST_TO_LOWEST":
+      const sortedHighToLow = [...state.filter_products].sort(
+        (a, b) => b.price - a.price
+      );
+      return {
+        ...state,
+        filter_products: sortedHighToLow,
+        sorting_value: "highest",
+      };
+
+    case "SORT_LOWEST_TO_HIGHEST":
+      const sortedLowToHigh = [...state.filter_products].sort(
+        (a, b) => a.price - b.price
+      );
+      return {
+        ...state,
+        filter_products: sortedLowToHigh,
+        sorting_value: "lowest",
+      };
 
     default:
       return state;
@@ -48,10 +67,10 @@ const initialState = {
   filter_products: [],
   subCategories: [],
   grid_view: true,
-  sorting_value: "lowest",
+  sorting_value: "",
   filter: {
     color: "all",
-    // category: "all",
+    category: "all",
     size: "all",
   },
 };
@@ -74,11 +93,17 @@ const FilterStateProvider = ({ children }) => {
   const setGridView = () => {
     return dispatch({ type: "SET_GRID_VIEW" });
   };
+
   const setListView = () => {
     return dispatch({ type: "SET_LIST_VIEW" });
   };
-  const sortOptions = (option) => {
-    return dispatch({ type: "SET_SORT_OPTION", payload: option });
+
+  const sortHighestToLowest = () => {
+    return dispatch({ type: "SORT_HIGHEST_TO_LOWEST" });
+  };
+
+  const sortLowestToHighest = () => {
+    return dispatch({ type: "SORT_LOWEST_TO_HIGHEST" });
   };
 
   const filters = (field, value) => {
@@ -95,8 +120,9 @@ const FilterStateProvider = ({ children }) => {
         ...state,
         setGridView,
         setListView,
-        sortOptions,
         filters,
+        sortHighestToLowest,
+        sortLowestToHighest,
       }}
     >
       {children}

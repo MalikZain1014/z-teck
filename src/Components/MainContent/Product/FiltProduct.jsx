@@ -16,13 +16,6 @@ import ProductView from "./ProductView";
 import { Link } from "react-router-dom";
 import { BsList } from "react-icons/bs";
 
-const sortOptions = [
-  { name: "Most Popular", href: "#", current: true },
-  { name: "Best Rating", href: "#", current: false },
-  { name: "Newest", href: "#", current: false },
-  { name: "Price: Low to High", href: "#", current: false },
-  { name: "Price: High to Low", href: "#", current: false },
-];
 // const subCategories = [
 //   { name: "Totes", href: "#" },
 //   { name: "Backpacks", href: "#" },
@@ -77,6 +70,10 @@ export default function FiltProduct() {
   const { isLoading, isError } = useProducts();
   const { filter_products, setGridView, setListView, grid_view } =
     useFilterProducts();
+
+  // State for sorting option
+  const [sortingOption, setSortingOption] = useState("lowest");
+
   const [selectedCategory, setSelectedCategory] = useState(null);
   const MemoizedProductView = React.memo(ProductView);
   if (isLoading) {
@@ -98,6 +95,20 @@ export default function FiltProduct() {
       : filter_products.filter(
           (product) => product.category === selectedCategory
         );
+  // Sorting function
+  // const sortProducts = (products, option) => {
+  //   if (option === "lowest") {
+  //     return [...products].sort((a, b) => a.price - b.price);
+  //   } else if (option === "highest") {
+  //     return [...products].sort((a, b) => b.price - a.price);
+  //   }
+  //   // Add more sorting options as needed
+  //   return products;
+  // };
+
+  const handleSortChange = (option) => {
+    setSortingOption(option);
+  };
   return (
     <div className="bg-trasparent">
       <div>
@@ -267,24 +278,39 @@ export default function FiltProduct() {
                 >
                   <Menu.Items className="absolute right-0 z-10 mt-2 w-40 origin-top-right rounded-md bg-white shadow-2xl ring-1 ring-black ring-opacity-5 focus:outline-none">
                     <div className="py-1">
-                      {sortOptions.map((option) => (
-                        <Menu.Item key={option.name}>
-                          {({ active }) => (
-                            <a
-                              href={option.href}
-                              className={classNames(
-                                option.current
-                                  ? "font-medium text-gray-900"
-                                  : "text-gray-500",
-                                active ? "bg-gray-100" : "",
-                                "block px-4 py-2 text-sm"
-                              )}
-                            >
-                              {option.name}
-                            </a>
-                          )}
-                        </Menu.Item>
-                      ))}
+                      <Menu.Item>
+                        {({ active }) => (
+                          <button
+                            onClick={() => handleSortChange("lowest")}
+                            className={classNames(
+                              sortingOption === "lowest"
+                                ? "font-medium text-gray-900"
+                                : "text-gray-500",
+                              active ? "bg-gray-100" : "",
+                              "block px-4 py-2 text-sm"
+                            )}
+                          >
+                            Lowest Price
+                          </button>
+                        )}
+                      </Menu.Item>
+                      <Menu.Item>
+                        {({ active }) => (
+                          <button
+                            onClick={() => handleSortChange("highest")}
+                            className={classNames(
+                              sortingOption === "highest"
+                                ? "font-medium text-gray-900"
+                                : "text-gray-500",
+                              active ? "bg-gray-100" : "",
+                              "block px-4 py-2 text-sm"
+                            )}
+                          >
+                            Highest Price
+                          </button>
+                        )}
+                      </Menu.Item>
+                      {/* Add more sorting options as needed */}
                     </div>
                   </Menu.Items>
                 </Transition>

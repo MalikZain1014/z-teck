@@ -42,12 +42,6 @@ function App() {
             <Route path="/:id" element={<FiltProduct />} />
             <Route path="/allproduct/:id" element={<ProductList />} />
             <Route path="/allproduct/:id/:id" element={<ProductDetails />} />
-            {/* <Route path="/l" element={<CardItem />} /> */}
-
-            {/* <Route path="/allproduct/:id/:id/:id" element={<QuickView />} /> */}
-
-            {/* <Route path="/" element={} /> */}
-            {/* <Route path="/*" element={<Error />} /> */}
           </Routes>
           <ShoppingCard />
           <AFooter />
